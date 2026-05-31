@@ -90,8 +90,8 @@ export async function createPixCharge(input: CreateChargeInput): Promise<PixPaym
         description,
       }),
     });
-  } catch (error) {
-    console.error("[payments] create network error", error);
+  } catch {
+    console.error("[payments] create network error");
     throw new Error(sanitizePaymentError());
   }
 
@@ -127,8 +127,8 @@ export async function fetchPixChargeStatus(transactionId: string): Promise<PixPa
         "X-API-Key": getApiKey(),
       },
     });
-  } catch (error) {
-    console.error("[payments] status network error", error);
+  } catch {
+    console.error("[payments] status network error");
     throw new Error(sanitizePaymentError());
   }
 

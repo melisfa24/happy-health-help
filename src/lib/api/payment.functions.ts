@@ -33,15 +33,9 @@ export const createPixPayment = createServerFn({ method: "POST" })
     try {
       const payment = await createPixCharge(data);
       return { ok: true as const, payment };
-    } catch (error) {
-      console.error("[payments] create error", error);
-      const message =
-        error instanceof Error &&
-        !error.message.includes("PAYMENTS_") &&
-        !error.message.includes("api.")
-          ? error.message
-          : sanitizePaymentError();
-      return { ok: false as const, message };
+    } catch {
+      console.error("[payments] create error");
+      return { ok: false as const, message: sanitizePaymentError() };
     }
   });
 

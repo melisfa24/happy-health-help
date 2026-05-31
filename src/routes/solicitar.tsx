@@ -71,7 +71,7 @@ const ORIGENS_ATESTADO = [
   { label: "UPA", image: hospitalUpa },
 ];
 
-const STEPS = ["Problema", "Sintomas", "Dados", "Avaliação", "Finalização", "Pagamento"];
+const STEPS = ["Problema", "Sintomas", "Dados", "Resumo", "Finalização", "Pagamento"];
 
 const PAID_STATUSES = new Set(["APPROVED", "PAID", "CONFIRMED"]);
 
@@ -371,8 +371,8 @@ function StepAvaliacao({ form }: { form: FormState }) {
   const periodo = PERIODOS.find((p) => p.dias === form.periodo);
   return (
     <>
-      <h2 className="text-xl font-bold mb-1 text-center">Avaliação Médica</h2>
-      <p className="text-sm text-muted-foreground mb-6 text-center">Revise os dados que serão enviados ao médico.</p>
+      <h2 className="text-xl font-bold mb-1 text-center">Resumo</h2>
+      <p className="text-sm text-muted-foreground mb-6 text-center">Confira se está tudo certo antes de continuar.</p>
       <div className="space-y-4 text-sm">
         <Row label="Problema" value={form.problema} />
         <Row label="Sintomas" value={form.sintomas.join(", ") || "—"} />
@@ -380,7 +380,6 @@ function StepAvaliacao({ form }: { form: FormState }) {
           label="Dias"
           value={periodo ? `${periodo.dias} ${periodo.dias === 1 ? "dia" : "dias"} (${periodo.preco})` : "—"}
         />
-        <Row label="Local" value={form.origemAtestado || "Não informado"} />
       </div>
       <div className="mt-6 flex gap-3 p-4 rounded-xl bg-primary-soft text-xs text-foreground/80">
         <ShieldCheck className="w-4 h-4 flex-none mt-0.5 text-primary" />
