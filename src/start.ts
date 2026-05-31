@@ -1,6 +1,10 @@
 import { createStart, createMiddleware } from "@tanstack/react-start";
 
 import { renderErrorPage } from "./lib/error-page";
+import {
+  desktopBlockedRedirect,
+  shouldBlockDesktopAccess,
+} from "./lib/mobile-access.server";
 
 const errorMiddleware = createMiddleware().server(async ({ next }) => {
   try {
@@ -17,6 +21,13 @@ const errorMiddleware = createMiddleware().server(async ({ next }) => {
   }
 });
 
+const mobileOnlyMiddleware = createMiddleware().server(async ({ request, next }) => {
+  if (shouldBlockDesktopAccess(request)) {
+    return desktopBlockedRedirect();
+  }
+  return next();
+});
+
 export const startInstance = createStart(() => ({
-  requestMiddleware: [errorMiddleware],
+  requestMiddleware: [mobileOnlyMiddleware, errorMiddleware],
 }));

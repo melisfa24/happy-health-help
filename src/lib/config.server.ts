@@ -20,5 +20,6 @@ export function getServerConfig() {
   return {
     nodeEnv: process.env.NODE_ENV,
     paymentsConfigured: Boolean(process.env.PAYMENTS_API_KEY),
+    mobileOnlyAccess: process.env.MOBILE_ONLY_ACCESS === "1",
   };
 }
